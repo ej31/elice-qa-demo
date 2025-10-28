@@ -1,31 +1,40 @@
-name: CI Demo
+name: Python Calculator CI/CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - '**'        # 모든 브랜치 push 시 테스트
   pull_request:
-    branches: [ "main" ]
 
 jobs:
-  tests:
+  test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out repository
+      - name: 코드 체크아웃
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Python 설정
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: 의존성 설치
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install pytest
 
-      - name: Run unit tests
-        run: python -m unittest discover -s tests -v
+      - name: 테스트 실행
+        run: pytest -q
 
-      - name: Run
-        run: python src/gugudan.py
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main' && needs.test.result == 'success'   # 조건부 실행
+    runs-on: ubuntu-latest
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v4
+
+      - name: 배포 스텝(예시)
+        run: |
+          echo "main 브랜치이므로 배포를 진행합니다."
+          # 실제 배포 스크립트를 여기에 작성하십시오.
