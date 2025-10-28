@@ -3,7 +3,7 @@ import re
 
 from behave import given, when, then
 
-from calculator import Calculator
+from calc import Calculator
 
 EXPRESSION_PATTERN = re.compile(r"^\s*(-?\d+(?:\.\d+)?)\s*([\+\-\*/])\s*(-?\d+(?:\.\d+)?)\s*$")
 
