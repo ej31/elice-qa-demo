@@ -1,4 +1,4 @@
-name: Python Application CI
+name: 디스코드 웹훅 데모
 
 on:
   push:
