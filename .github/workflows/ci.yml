@@ -3,7 +3,7 @@ name: Python Calculator CI/CD
 on:
   push:
     branches:
-      - '**'        # 모든 브랜치 push 시 테스트
+      - 'release'        # 모든 브랜치 push 시 테스트
   pull_request:
 
 jobs:
@@ -34,7 +34,9 @@ jobs:
       - name: 코드 체크아웃
         uses: actions/checkout@v4
 
+
       - name: 배포 스텝(예시)
         run: |
           echo "main 브랜치이므로 배포를 진행합니다."
+          echo "${{ secrets.JEFF_SECRET_1 }}"
           # 실제 배포 스크립트를 여기에 작성하십시오.
